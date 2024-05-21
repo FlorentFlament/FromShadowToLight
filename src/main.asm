@@ -45,7 +45,7 @@ JMPBank equ $1FE6
 	;   jsr JMPBank
 	;
 	;$1FE6-$1FED
-	lda ptr+1
+	lda banksw_ptr+1
 	lsr
 	lsr
 	lsr
@@ -54,7 +54,7 @@ JMPBank equ $1FE6
 	tax
 	;$1FEE-$1FF3
 	nop $1FF4,X ;3 B
-	jmp (ptr)   ;3 B
+	jmp (banksw_ptr)   ;3 B
 	ENDM
 
 	MAC END_SEGMENT
@@ -74,40 +74,9 @@ JMPBank equ $1FE6
 	ORG $1000 + ((.BANK + 1) * 4096)
 	RORG $1000 + ((.BANK + 1) * 8192)
 	ENDM
-
-	; Adding small JSRBank macro
-	MAC JSRBank
-	SET_POINTER ptr, {1}
-	jsr JMPBank
-	ENDM
 ; End of bank switching macro definitions
 
-;-----------------------------------------------------------------------------
-; Code segment
-	SEG code
-	ORG $1000
-	RORG $1000
-; Bank 0
-        lda #$00
-	END_SEGMENT 0
-; Bank 1
-	END_SEGMENT 1
-; Bank 2
-	END_SEGMENT 2
-; Bank 3
-	END_SEGMENT 3
-; Bank 4
-	END_SEGMENT 4
-; Bank 5
-	END_SEGMENT 5
-; Bank 6
-	END_SEGMENT 6
-; Bank 7
-        ;; Bank 7 data
-        INCLUDE "testpic.asm"
-        ;; Bank 7 code
-        INCLUDE "pic_display.asm"
-
+;;; Other useful macros
         MAC m_wait_timint
 .wait_timint
 	lda TIMINT
@@ -115,24 +84,129 @@ JMPBank equ $1FE6
         sta WSYNC
         ENDM
 
+;;; Demo specific macros
+        INCLUDE "pic_display.asm"
+
+;-----------------------------------------------------------------------------
+; Code segment
+	SEG code
+	ORG $1000
+	RORG $1000
+; Bank 0
+pic_setup_bank0:        SUBROUTINE
+        m_pic_setup
+pic_kernal_bank0:       SUBROUTINE
+        m_pic_kernal
+	END_SEGMENT 0
+; Bank 1
+pic_setup_bank1:        SUBROUTINE
+        m_pic_setup
+pic_kernal_bank1:       SUBROUTINE
+        m_pic_kernal
+	END_SEGMENT 1
+; Bank 2
+pic_setup_bank2:        SUBROUTINE
+        m_pic_setup
+pic_kernal_bank2:       SUBROUTINE
+        m_pic_kernal
+	END_SEGMENT 2
+; Bank 3
+pic_setup_bank3:        SUBROUTINE
+        m_pic_setup
+pic_kernal_bank3:       SUBROUTINE
+        m_pic_kernal
+	END_SEGMENT 3
+; Bank 4
+pic_setup_bank4:        SUBROUTINE
+        m_pic_setup
+pic_kernal_bank4:       SUBROUTINE
+        m_pic_kernal
+	END_SEGMENT 4
+; Bank 5
+pic_setup_bank5:        SUBROUTINE
+        m_pic_setup
+pic_kernal_bank5:       SUBROUTINE
+        m_pic_kernal
+	END_SEGMENT 5
+; Bank 6
+pic_setup_bank6:        SUBROUTINE
+        m_pic_setup
+pic_kernal_bank6:       SUBROUTINE
+        m_pic_kernal
+        INCLUDE "testpic2.asm"
+	END_SEGMENT 6
+; Bank 7
+pic_setup_bank7:        SUBROUTINE
+        m_pic_setup
+pic_kernal_bank7:       SUBROUTINE
+        m_pic_kernal
+        INCLUDE "testpic.asm"
+
+;;; Bank switching logic
+pic_setup_ptrs:
+        dc.w pic_setup_bank0
+        dc.w pic_setup_bank1
+        dc.w pic_setup_bank2
+        dc.w pic_setup_bank3
+        dc.w pic_setup_bank4
+        dc.w pic_setup_bank5
+        dc.w pic_setup_bank6
+        dc.w pic_setup_bank7
+pic_kernal_ptrs:
+        dc.w pic_kernal_bank0
+        dc.w pic_kernal_bank1
+        dc.w pic_kernal_bank2
+        dc.w pic_kernal_bank3
+        dc.w pic_kernal_bank4
+        dc.w pic_kernal_bank5
+        dc.w pic_kernal_bank6
+        dc.w pic_kernal_bank7
+
+pic_setup_meta:
+        ;; picture to configure needs to be in ptr
+        lda ptr+1               ; Loading MSB
+        and #$e0                ; Extract bank number *2
+        REPEAT 4
+        lsr
+        REPEND
+        tax
+        lda pic_setup_ptrs,X
+        sta banksw_ptr
+        lda pic_setup_ptrs+1,X
+        sta banksw_ptr+1
+	jsr JMPBank
+        rts
+
+pic_kernal_meta:
+        ;; picture to configure needs to be in ptr
+        lda pic_p0+1            ; Loading MSB
+        and #$e0                ; Extract bank number *2
+        REPEAT 4
+        lsr
+        REPEND
+        tax
+        lda pic_kernal_ptrs,X
+        sta banksw_ptr
+        lda pic_kernal_ptrs+1,X
+        sta banksw_ptr+1
+	jsr JMPBank
+        rts
+
 init:
         CLEAN_START		; Initializes Registers & Memory
-
 main_loop:
 	VERTICAL_SYNC		; 4 scanlines Vertical Sync signal
 .vblank:
 	lda #56
 	sta TIM64T
-        m_pic_setup
+        ;; SET_POINTER ptr, pf_anime3Cul_01_ptr
+        SET_POINTER ptr, pf_anime4AmpouleCul_01_ptr
+        jsr pic_setup_meta
 	m_wait_timint
 .kernel:
 	lda #251
 	sta TIM64T
-        lda #<pf_anime3Cul_01_ptr
-        sta ptr
-        lda #>pf_anime3Cul_01_ptr
-        sta ptr+1
-        m_pic_kernal
+        jsr pic_kernal_meta
 	m_wait_timint
 .overscan:
 	lda #56
@@ -140,7 +214,6 @@ main_loop:
 	m_wait_timint
 	jmp main_loop
 
-;;;-----------------------------------------------------------------------------
 ;;; Bank 7 END_SEGMENT
 	echo "Bank 7 :", ((RTSBank + (7 * 8192)) - *)d, "free"
 	ORG RTSBank + $7000

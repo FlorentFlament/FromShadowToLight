@@ -18,6 +18,7 @@ LINES_THICK = 6         ; line width (in pixels)
         sta pic_p0,Y
         dey
         bpl .setup_loop
+        jmp RTSBank
         ENDM
 
 ;;; Picture display kernal macro
@@ -49,4 +50,5 @@ LINES_THICK = 6         ; line width (in pixels)
 	sta PF0
 	sta PF1
 	sta PF2
+        jmp RTSBank
         ENDM
