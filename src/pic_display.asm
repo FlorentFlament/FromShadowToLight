@@ -22,8 +22,6 @@ LINES_THICK = 6         ; line width (in pixels)
 
 ;;; Picture display kernal macro
         MAC m_pic_kernal
-        m_pic_setup
-
 	ldy #(LINES_COUNT-1)
 .outer:
 	ldx #(LINES_THICK-1)
