@@ -85,9 +85,10 @@ JMPBank equ $1FE6
 ;-----------------------------------------------------------------------------
 ; Code segment
 	SEG code
-; Bank 0
 	ORG $1000
 	RORG $1000
+; Bank 0
+        lda #$00
 	END_SEGMENT 0
 ; Bank 1
 	END_SEGMENT 1
