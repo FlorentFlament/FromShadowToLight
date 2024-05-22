@@ -1,7 +1,14 @@
-clips_sequence:                 ; Overall sequence of clips
+;;; Overall sequence of clips
+clips_sequence:
         dc.w clip_anim_titre
         dc.w clip_anim_cul
-        dc.w #$0000
+
+;;; specifies on which frame to switch parts
+M_C0 = 250
+M_C1 = 0
+clipswitch:
+        .word M_C0
+        .word M_C1
 
 pfs_anime3Cul_01:
 	dc.w pic_anime3Cul_01 + 0

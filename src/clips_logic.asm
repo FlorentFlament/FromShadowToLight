@@ -1,11 +1,19 @@
 ;;; Clip setup macro
 ;;; Uses clip_index, clip_state, clip_counter
         MAC m_clip_setup
-        ;; Address of clip to display is passed in ptr
+        ;; Just sets colors
         lda #$00
         sta COLUBK
         lda #$fe
         sta COLUPF
+
+        lda clip_index
+        asl
+        tax
+        lda clips_sequence,X
+        sta ptr
+        lda clips_sequence+1,X
+        sta ptr+1               ; Address of clip to display stored in ptr
 
         ldy #$03
         lda (ptr),Y
@@ -60,13 +68,34 @@
 ;;; End of clip setup macro
 
 
+;;; Macro to check whether to switch to next clip
+        MAC m_check_clipswitch
+	lda clip_index
+	asl
+	tax
+	lda clipswitch,X
+	cmp frame_cnt
+        bne .no_switch
+        lda clipswitch+1,X
+        cmp frame_cnt+1
+        bne .no_switch
+        ; Switch part
+        inc clip_index
+        lda #$00
+        sta clip_state
+        lda #$ff
+        sta clip_counter
+.no_switch:
+        ENDM
+;;; End of macro to check whether to switch to next clip
+
         MAC m_init
         lda #$ff
         sta clip_counter
         ENDM
 
         MAC m_vblank
-        SET_POINTER ptr, clip_anim_cul
+        m_check_clipswitch
         m_clip_setup
         ENDM
 
@@ -75,4 +104,8 @@
         ENDM
 
         MAC m_overscan
+        inc frame_cnt
+        bne .continue
+        inc frame_cnt+1
+.continue:
         ENDM
