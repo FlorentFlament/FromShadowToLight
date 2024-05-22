@@ -96,16 +96,17 @@ JMPBank equ $1FE6
 pic_kernal_bank0:       SUBROUTINE
         m_pic_kernal
         INCLUDE "data_anim_cul.asm"
+        INCLUDE "data_anim_ampoulecul.asm"
 	END_SEGMENT 0
 ; Bank 1
 pic_kernal_bank1:       SUBROUTINE
         m_pic_kernal
         INCLUDE "data_anim_titre.asm"
+        INCLUDE "data_anim_ampoule.asm"
 	END_SEGMENT 1
 ; Bank 2
 pic_kernal_bank2:       SUBROUTINE
         m_pic_kernal
-        INCLUDE "data_anim_ampoule.asm"
 	END_SEGMENT 2
 ; Bank 3
 pic_kernal_bank3:       SUBROUTINE

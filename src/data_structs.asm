@@ -3,15 +3,18 @@ clips_sequence:
         dc.w clip_anim_titre
         dc.w clip_anim_cul
         dc.w clip_anim_ampoule
+        dc.w clip_anim_ampoulecul
 
 ;;; specifies on which frame to switch parts
 M_C0 = 250
 M_C1 = M_C0 + 250
-M_C2 = 0
+M_C2 = M_C1 + 250
+M_C3 = 0
 clipswitch:
         .word M_C0
         .word M_C1
         .word M_C2
+        .word M_C3
 
 pfs_anime3Cul_01:
 	dc.w pic_anime3Cul_01 + 0
@@ -222,3 +225,50 @@ clip_anim_ampoule:
 	dc.b $00	; type animation
 	dc.w ptr_anim_ampoule
 	dc.w seq_anim_ampoule
+pfs_anime4AmpouleCul_01:
+	dc.w pic_anime4AmpouleCul_01 + 0
+	dc.w pic_anime4AmpouleCul_01 + 40
+	dc.w pic_anime4AmpouleCul_01 + 80
+	dc.w pic_anime4AmpouleCul_01 + 120
+	dc.w pic_anime4AmpouleCul_01 + 160
+	dc.w pic_anime4AmpouleCul_01 + 200
+pfs_anime4AmpouleCul_02:
+	dc.w pic_anime4AmpouleCul_02 + 0
+	dc.w pic_anime4AmpouleCul_02 + 40
+	dc.w pic_anime4AmpouleCul_02 + 80
+	dc.w pic_anime4AmpouleCul_02 + 120
+	dc.w pic_anime4AmpouleCul_02 + 160
+	dc.w pic_anime4AmpouleCul_02 + 200
+pfs_anime4AmpouleCul_03:
+	dc.w pic_anime4AmpouleCul_03 + 0
+	dc.w pic_anime4AmpouleCul_03 + 40
+	dc.w pic_anime4AmpouleCul_03 + 80
+	dc.w pic_anime4AmpouleCul_03 + 120
+	dc.w pic_anime4AmpouleCul_03 + 160
+	dc.w pic_anime4AmpouleCul_03 + 200
+pfs_anime4AmpouleCul_04:
+	dc.w pic_anime4AmpouleCul_04 + 0
+	dc.w pic_anime4AmpouleCul_04 + 40
+	dc.w pic_anime4AmpouleCul_04 + 80
+	dc.w pic_anime4AmpouleCul_04 + 120
+	dc.w pic_anime4AmpouleCul_04 + 160
+	dc.w pic_anime4AmpouleCul_04 + 200
+pfs_anime4AmpouleCul_05:
+	dc.w pic_anime4AmpouleCul_05 + 0
+	dc.w pic_anime4AmpouleCul_05 + 40
+	dc.w pic_anime4AmpouleCul_05 + 80
+	dc.w pic_anime4AmpouleCul_05 + 120
+	dc.w pic_anime4AmpouleCul_05 + 160
+	dc.w pic_anime4AmpouleCul_05 + 200
+ptr_anim_ampoulecul:
+	dc.w pfs_anime4AmpouleCul_01
+	dc.w pfs_anime4AmpouleCul_02
+	dc.w pfs_anime4AmpouleCul_03
+	dc.w pfs_anime4AmpouleCul_04
+	dc.w pfs_anime4AmpouleCul_05
+seq_anim_ampoulecul:
+	dc.b $00, $01, $02, $03, $04, $ff
+clip_anim_ampoulecul:
+	dc.b $00	; type animation
+	dc.w ptr_anim_ampoulecul
+	dc.w seq_anim_ampoulecul
