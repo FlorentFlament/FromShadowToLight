@@ -4,7 +4,7 @@
 # This script converts a Black and White 40x40 picture from png format
 # to dasm format; to be used for Atari VCS 2600 demos.
 
-from os.path import basename
+import os
 import sys
 import argparse
 
@@ -12,6 +12,9 @@ from PIL import Image
 
 import asmlib
 from imglib import *
+
+def sanitize(s):
+    return ''.join([c if c.isalnum() else '_' for c in s])
 
 def sanity_check(im):
     """Checks that the image has the appropriate format:
@@ -35,25 +38,7 @@ def playfields(l):
     pfs.append(list(reversed(l[32:40])))
     return flatten(pfs)
 
-def main():
-    parser = argparse.ArgumentParser(description="Converts a black and white png image to dasm data usable by an Atari 2600 program.")
-    parser.add_argument("fname", type=str, help="Path to png image file")
-    parser.add_argument("-c", "--compact", action="store_true", help="Prints output data in a compact form")
-    parser.add_argument("-r", "--revert", action="store_true", help="Reverts the black and white")
-    parser.add_argument("-s", "--sprites", action="store_true", help="Generate data for sprites usage rather than playfieild")
-    args = parser.parse_args()
-
-    fname = args.fname
-    revert = args.revert
-    compact = args.compact
-    sprites = args.sprites
-    if sprites:
-        bytes_per_line = 8
-        label_prefix = "sp_"
-    else:
-        bytes_per_line = 6
-        label_prefix = "pf_"
-
+def dump_picture(fname, img_name, revert):
     # Convert to 1 byte in {0,255} per pixel
     im   = Image.open(fname)
 
@@ -64,37 +49,44 @@ def main():
     sanity_check(grey)
     arr   = bool_array(grey)
 
-    if sprites:
-        pack  = pack_bytes(arr)
-    else:
-        lines = [arr[i:i+40] for i in range(0, len(arr), 40)]
-        pfs   = [playfields(l) for l in lines]
-        pack  = pack_bytes(flatten(pfs))
+    lines = [arr[i:i+40] for i in range(0, len(arr), 40)]
+    pfs   = [playfields(l) for l in lines]
+    pack  = pack_bytes(flatten(pfs))
 
     if revert:
         pack = [~v & 0xff for v in pack]
-    img_name = basename(fname).split(".")[0].replace("-","_")
-    if compact:
-        print(f"{label_prefix}{img_name}:")
-        print(asmlib.lst2asm(pack, bytes_per_line))
+
+    for i in range(6): # 6 platfield registers
+        pack_pfs = reversed(pack[i::6]) # 40 lines
+        # Beware: reversing the lines to display them from end to start in Atari code
+        # There's a little gain of doing that.
+        print(f"pf{i}_{img_name}:")
+        print(asmlib.lst2asm(pack_pfs, 8))
+
+
+def dump_structures(img_name):
+    # Print pointers
+    print(f"ptr_{img_name}:")
+    for i in range(6):
+        print(f"\tdc.w pf{i}_{img_name}")
+
+    print(f"clip_{img_name}:")
+    print( "\tdc.b $01\t; type vertical scroller")
+    print(f"\tdc.w ptr_{img_name}")
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Converts a black and white png image to dasm data usable by an Atari 2600 program.")
+    parser.add_argument("fname", type=str, help="Path to png image file")
+    parser.add_argument("-r", "--revert", action="store_true", help="Reverts the black and white")
+    parser.add_argument("-p", "--picture", action="store_true", help="Dump picture data rather than structure")
+    args = parser.parse_args()
+
+    img_name = sanitize(os.path.splitext(os.path.basename(args.fname))[0])
+    if args.picture:
+        dump_picture(args.fname, img_name, args.revert)
     else:
-        # Only for playfield pictures
-        if sprites:
-            for i in range(2):
-                pack_sp = reversed(pack[0+i::2])
-                print(f"{label_prefix}{img_name}_{i}:")
-                print(asmlib.lst2asm(pack_sp, 8))
-        else:
-            for i in range(6): # 6 platfield registers
-                pack_pfs = reversed(pack[i:40*6:6]) # 40 lines
-                # Beware: reversing the lines to display them from end to start in Atari code
-                # There's a little gain of doing that.
-                print(f"{label_prefix}{img_name}_p{i}:")
-                print(asmlib.lst2asm(pack_pfs, 8))
-        # Print pointers
-        print(f"{label_prefix}{img_name}_ptr:")
-        for i in range(6):
-            print(f"\tdc.w {label_prefix}{img_name}_p{i}")
+        dump_structures(img_name)
 
 if __name__ == "__main__":
     main()
