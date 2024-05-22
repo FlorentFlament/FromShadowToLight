@@ -125,11 +125,8 @@ pic_kernal_bank6:       SUBROUTINE
 ; Bank 7
 pic_kernal_bank7:       SUBROUTINE
         m_pic_kernal
-pic_setup:              SUBROUTINE
-        m_pic_setup
-clip_setup:             SUBROUTINE
-        m_clip_setup
         INCLUDE "data_structs.asm"
+        INCLUDE "clips_logic.asm"
 
 ;;; Bank switching logic
 pic_kernal_ptrs:
@@ -142,7 +139,7 @@ pic_kernal_ptrs:
         dc.w pic_kernal_bank6
         dc.w pic_kernal_bank7
 
-pic_kernal_meta:
+        MAC m_pic_kernal_meta
         ;; picture to configure needs to be in ptr
         lda pic_p0+1            ; Loading MSB
         and #$e0                ; Extract bank number *2
@@ -155,35 +152,27 @@ pic_kernal_meta:
         lda pic_kernal_ptrs+1,X
         sta banksw_ptr+1
 	jsr JMPBank
-        rts
+        ENDM
 
 init:
         CLEAN_START		; Initializes Registers & Memory
-        lda #$ff
-        sta clip_counter
+        m_init
 main_loop:
 	VERTICAL_SYNC		; 4 scanlines Vertical Sync signal
 .vblank:
 	lda #56
 	sta TIM64T
-        SET_POINTER ptr, clip_anim_titre
-        jsr clip_setup
+        m_vblank
 	m_wait_timint
 .kernel:
 	lda #251
 	sta TIM64T
-        jsr pic_kernal_meta
+        m_kernal
 	m_wait_timint
 .overscan:
 	lda #56
 	sta TIM64T
-        lda clip_counter
-        sec
-        sbc #30                 ; Random value
-        sta clip_counter
-        bcs .skip
-        inc clip_index
-.skip:
+        m_overscan
 	m_wait_timint
 	jmp main_loop
 

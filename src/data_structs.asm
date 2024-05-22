@@ -1,3 +1,8 @@
+clips_sequence:                 ; Overall sequence of clips
+        dc.w clip_anim_titre
+        dc.w clip_anim_cul
+        dc.w #$0000
+
 pfs_anime3Cul_01:
 	dc.w pic_anime3Cul_01 + 0
 	dc.w pic_anime3Cul_01 + 40
@@ -72,9 +77,10 @@ ptr_anim_cul:
 	dc.w pfs_anime3Cul_08
 	dc.w pfs_blank
 seq_anim_cul:
-	dc.b $00, $00, $01, $01, $02, $03, $04, $05
-	dc.b $06, $07, $08, $07, $08, $07, $08, $07
-	dc.b $08, $07, $ff
+	dc.b $00, $00, $00, $00, $01, $01, $01, $01
+	dc.b $02, $03, $04, $05, $06, $06, $06, $06
+	dc.b $07, $08, $07, $08, $07, $08, $07, $08
+	dc.b $07, $ff
 clip_anim_cul:
 	dc.b $00	; type animation
 	dc.w ptr_anim_cul
