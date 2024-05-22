@@ -81,13 +81,12 @@ ptr_anim_cul:
 	dc.w pfs_anime3Cul_05
 	dc.w pfs_anime3Cul_06
 	dc.w pfs_anime3Cul_07
-	dc.w pfs_anime3Cul_08
 	dc.w pfs_blank
+	dc.w pfs_anime3Cul_08
 seq_anim_cul:
 	dc.b $00, $00, $00, $00, $01, $01, $01, $01
-	dc.b $02, $03, $04, $05, $06, $06, $06, $06
-	dc.b $07, $08, $07, $08, $07, $08, $07, $08
-	dc.b $07, $ff
+	dc.b $02, $03, $04, $05, $06, $07, $07, $07
+	dc.b $07, $08, $07, $08, $07, $08, $ff
 clip_anim_cul:
 	dc.b $00	; type animation
 	dc.w ptr_anim_cul
