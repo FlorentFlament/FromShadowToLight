@@ -113,10 +113,14 @@ pic_kernal_bank2:       SUBROUTINE
 ; Bank 3
 pic_kernal_bank3:       SUBROUTINE
         m_pic_kernal
+        INCLUDE "data_vscroll_bloc3.asm"
+        INCLUDE "data_vscroll_bloc4.asm"
 	END_SEGMENT 3
 ; Bank 4
 pic_kernal_bank4:       SUBROUTINE
         m_pic_kernal
+        INCLUDE "data_vscroll_ampoulecul.asm"
+        INCLUDE "data_vscroll_bloc5.asm"
 	END_SEGMENT 4
 ; Bank 5
 pic_kernal_bank5:       SUBROUTINE

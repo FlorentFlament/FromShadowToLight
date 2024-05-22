@@ -3,17 +3,25 @@ clips_sequence:
         dc.w clip_gfx_40x200_bloc1
         dc.w clip_anim_titre
         dc.w clip_gfx_40x320_bloc2
-        dc.w clip_anim_cul
         dc.w clip_anim_ampoule
+        dc.w clip_gfx_40x360_bloc3
+        dc.w clip_anim_cul
+        dc.w clip_gfx_40x200_bloc4
         dc.w clip_anim_ampoulecul
-
+        dc.w clip_gfx_40x160_bloc5
+        dc.w clip_animeAmpouleCul_bloc120
+        
 ;;; specifies on which frame to switch parts
 M_C0 = 1000
 M_C1 = M_C0 + 250
 M_C2 = M_C1 + 1500
 M_C3 = M_C2 + 250
-M_C4 = M_C3 + 250
-M_C5 = 0
+M_C4 = M_C3 + 1750
+M_C5 = M_C4 + 250
+M_C6 = M_C5 + 1000
+M_C7 = M_C6 + 150
+M_C8 = M_C7 + 1000
+M_C9 = 0
 clipswitch:
         .word M_C0
         .word M_C1
@@ -21,6 +29,10 @@ clipswitch:
         .word M_C3
         .word M_C4
         .word M_C5
+        .word M_C6
+        .word M_C7
+        .word M_C8
+        .word M_C9
 
 pfs_anime3Cul_01:
 	dc.w pic_anime3Cul_01 + 0
@@ -300,3 +312,47 @@ clip_gfx_40x320_bloc2:
 	dc.b $01	; type vertical scroller
 	dc.w ptr_gfx_40x320_bloc2
 	dc.w $140	; picture height
+ptr_gfx_40x360_bloc3:
+	dc.w pf0_gfx_40x360_bloc3
+	dc.w pf1_gfx_40x360_bloc3
+	dc.w pf2_gfx_40x360_bloc3
+	dc.w pf3_gfx_40x360_bloc3
+	dc.w pf4_gfx_40x360_bloc3
+	dc.w pf5_gfx_40x360_bloc3
+clip_gfx_40x360_bloc3:
+	dc.b $01	; type vertical scroller
+	dc.w ptr_gfx_40x360_bloc3
+	dc.w $168	; picture height
+ptr_gfx_40x200_bloc4:
+	dc.w pf0_gfx_40x200_bloc4
+	dc.w pf1_gfx_40x200_bloc4
+	dc.w pf2_gfx_40x200_bloc4
+	dc.w pf3_gfx_40x200_bloc4
+	dc.w pf4_gfx_40x200_bloc4
+	dc.w pf5_gfx_40x200_bloc4
+clip_gfx_40x200_bloc4:
+	dc.b $01	; type vertical scroller
+	dc.w ptr_gfx_40x200_bloc4
+	dc.w $c8	; picture height
+ptr_animeAmpouleCul_bloc120:
+	dc.w pf0_animeAmpouleCul_bloc120
+	dc.w pf1_animeAmpouleCul_bloc120
+	dc.w pf2_animeAmpouleCul_bloc120
+	dc.w pf3_animeAmpouleCul_bloc120
+	dc.w pf4_animeAmpouleCul_bloc120
+	dc.w pf5_animeAmpouleCul_bloc120
+clip_animeAmpouleCul_bloc120:
+	dc.b $01	; type vertical scroller
+	dc.w ptr_animeAmpouleCul_bloc120
+	dc.w $78	; picture height
+ptr_gfx_40x160_bloc5:
+	dc.w pf0_gfx_40x160_bloc5
+	dc.w pf1_gfx_40x160_bloc5
+	dc.w pf2_gfx_40x160_bloc5
+	dc.w pf3_gfx_40x160_bloc5
+	dc.w pf4_gfx_40x160_bloc5
+	dc.w pf5_gfx_40x160_bloc5
+clip_gfx_40x160_bloc5:
+	dc.b $01	; type vertical scroller
+	dc.w ptr_gfx_40x160_bloc5
+	dc.w $c8	; picture height
