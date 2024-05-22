@@ -3,7 +3,7 @@ frame_cnt       ds.w    1
 ;;; clip variables
 clip_index      ds.b    1
 clip_counter    ds.b    1
-clip_state      ds.b    1
+clip_state      ds.w    1
 
 ;;; ptr = tt_ptr		; Reusing tt_ptr as temporary pointer
 banksw_ptr      ds.w    1

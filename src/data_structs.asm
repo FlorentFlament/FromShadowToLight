@@ -2,6 +2,7 @@
 clips_sequence:
         dc.w clip_gfx_40x200_bloc1
         dc.w clip_anim_titre
+        dc.w clip_gfx_40x320_bloc2
         dc.w clip_anim_cul
         dc.w clip_anim_ampoule
         dc.w clip_anim_ampoulecul
@@ -9,15 +10,17 @@ clips_sequence:
 ;;; specifies on which frame to switch parts
 M_C0 = 1000
 M_C1 = M_C0 + 250
-M_C2 = M_C1 + 250
+M_C2 = M_C1 + 1500
 M_C3 = M_C2 + 250
-M_C4 = 0
+M_C4 = M_C3 + 250
+M_C5 = 0
 clipswitch:
         .word M_C0
         .word M_C1
         .word M_C2
         .word M_C3
         .word M_C4
+        .word M_C5
 
 pfs_anime3Cul_01:
 	dc.w pic_anime3Cul_01 + 0
@@ -286,3 +289,14 @@ clip_gfx_40x200_bloc1:
 	dc.b $01	; type vertical scroller
 	dc.w ptr_gfx_40x200_bloc1
 	dc.w $c8	; picture height
+ptr_gfx_40x320_bloc2:
+	dc.w pf0_gfx_40x320_bloc2
+	dc.w pf1_gfx_40x320_bloc2
+	dc.w pf2_gfx_40x320_bloc2
+	dc.w pf3_gfx_40x320_bloc2
+	dc.w pf4_gfx_40x320_bloc2
+	dc.w pf5_gfx_40x320_bloc2
+clip_gfx_40x320_bloc2:
+	dc.b $01	; type vertical scroller
+	dc.w ptr_gfx_40x320_bloc2
+	dc.w $140	; picture height

@@ -8,7 +8,7 @@
         lda (ptr),Y
         sta ptr1+1              ; ptr1 stores sequence pointer
 
-        ldy clip_state
+        ldy clip_state          ; Only using LSB for animations
         lda (ptr1),Y
         cmp #$ff                ; End of animation marker
         bne .continue
@@ -69,7 +69,7 @@
         sbc clip_state
         sta ptr2
         lda ptr2+1
-        sbc #0
+        sbc clip_state+1
         sta ptr2+1
         bcs .positive
         lda #$00
@@ -135,6 +135,8 @@
         sta clip_counter
         bcs .skip
         inc clip_state
+        bne .skip
+        inc clip_state+1
 .skip:
         ENDM
 ;;; End Clip setup macro
@@ -155,6 +157,7 @@
         inc clip_index
         lda #$00
         sta clip_state
+        sta clip_state+1
         lda #$ff
         sta clip_counter
 .no_switch:

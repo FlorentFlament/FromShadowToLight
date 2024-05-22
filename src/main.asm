@@ -108,6 +108,7 @@ pic_kernal_bank1:       SUBROUTINE
 pic_kernal_bank2:       SUBROUTINE
         m_pic_kernal
         INCLUDE "data_vscroll_bloc1.asm"
+        INCLUDE "data_vscroll_bloc2.asm"
 	END_SEGMENT 2
 ; Bank 3
 pic_kernal_bank3:       SUBROUTINE
