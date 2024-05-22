@@ -1,0 +1,10 @@
+pictures:
+  - "anime1Titre-01.gif"
+  - "anime1Titre-02.gif"
+  - "anime1Titre-03.gif"
+  - "anime1Titre-04.gif"
+  - "anime1Titre-05.gif"
+  - "anime1Titre-06.gif"
+  - "anime1Titre-07.gif"
+  - "anime1Titre-08.gif"
+sequence: [0, 1, 2, 3, 4, 5, 6, 7, 6, 7, 6, 7, 6, 7]

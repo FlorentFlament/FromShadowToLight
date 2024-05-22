@@ -100,6 +100,7 @@ pic_kernal_bank0:       SUBROUTINE
 ; Bank 1
 pic_kernal_bank1:       SUBROUTINE
         m_pic_kernal
+        INCLUDE "data_anim_titre.asm"
 	END_SEGMENT 1
 ; Bank 2
 pic_kernal_bank2:       SUBROUTINE
@@ -165,7 +166,7 @@ main_loop:
 .vblank:
 	lda #56
 	sta TIM64T
-        SET_POINTER ptr, clip_anim_cul
+        SET_POINTER ptr, clip_anim_titre
         jsr clip_setup
 	m_wait_timint
 .kernel:
