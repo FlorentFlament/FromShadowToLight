@@ -2,13 +2,16 @@
 clips_sequence:
         dc.w clip_anim_titre
         dc.w clip_anim_cul
+        dc.w clip_anim_ampoule
 
 ;;; specifies on which frame to switch parts
 M_C0 = 250
-M_C1 = 0
+M_C1 = M_C0 + 250
+M_C2 = 0
 clipswitch:
         .word M_C0
         .word M_C1
+        .word M_C2
 
 pfs_anime3Cul_01:
 	dc.w pic_anime3Cul_01 + 0
@@ -163,3 +166,59 @@ clip_anim_titre:
 	dc.b $00	; type animation
 	dc.w ptr_anim_titre
 	dc.w seq_anim_titre
+pfs_anime2Ampoule_01:
+	dc.w pic_anime2Ampoule_01 + 0
+	dc.w pic_anime2Ampoule_01 + 40
+	dc.w pic_anime2Ampoule_01 + 80
+	dc.w pic_anime2Ampoule_01 + 120
+	dc.w pic_anime2Ampoule_01 + 160
+	dc.w pic_anime2Ampoule_01 + 200
+pfs_anime2Ampoule_02:
+	dc.w pic_anime2Ampoule_02 + 0
+	dc.w pic_anime2Ampoule_02 + 40
+	dc.w pic_anime2Ampoule_02 + 80
+	dc.w pic_anime2Ampoule_02 + 120
+	dc.w pic_anime2Ampoule_02 + 160
+	dc.w pic_anime2Ampoule_02 + 200
+pfs_anime2Ampoule_03:
+	dc.w pic_anime2Ampoule_03 + 0
+	dc.w pic_anime2Ampoule_03 + 40
+	dc.w pic_anime2Ampoule_03 + 80
+	dc.w pic_anime2Ampoule_03 + 120
+	dc.w pic_anime2Ampoule_03 + 160
+	dc.w pic_anime2Ampoule_03 + 200
+pfs_anime2Ampoule_04:
+	dc.w pic_anime2Ampoule_04 + 0
+	dc.w pic_anime2Ampoule_04 + 40
+	dc.w pic_anime2Ampoule_04 + 80
+	dc.w pic_anime2Ampoule_04 + 120
+	dc.w pic_anime2Ampoule_04 + 160
+	dc.w pic_anime2Ampoule_04 + 200
+pfs_anime2Ampoule_05:
+	dc.w pic_anime2Ampoule_05 + 0
+	dc.w pic_anime2Ampoule_05 + 40
+	dc.w pic_anime2Ampoule_05 + 80
+	dc.w pic_anime2Ampoule_05 + 120
+	dc.w pic_anime2Ampoule_05 + 160
+	dc.w pic_anime2Ampoule_05 + 200
+pfs_anime2Ampoule_06:
+	dc.w pic_anime2Ampoule_06 + 0
+	dc.w pic_anime2Ampoule_06 + 40
+	dc.w pic_anime2Ampoule_06 + 80
+	dc.w pic_anime2Ampoule_06 + 120
+	dc.w pic_anime2Ampoule_06 + 160
+	dc.w pic_anime2Ampoule_06 + 200
+ptr_anim_ampoule:
+	dc.w pfs_anime2Ampoule_01
+	dc.w pfs_anime2Ampoule_02
+	dc.w pfs_anime2Ampoule_03
+	dc.w pfs_anime2Ampoule_04
+	dc.w pfs_anime2Ampoule_05
+	dc.w pfs_anime2Ampoule_06
+seq_anim_ampoule:
+	dc.b $00, $01, $02, $03, $04, $05, $04, $05
+	dc.b $04, $05, $04, $05, $ff
+clip_anim_ampoule:
+	dc.b $00	; type animation
+	dc.w ptr_anim_ampoule
+	dc.w seq_anim_ampoule

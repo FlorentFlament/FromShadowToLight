@@ -105,6 +105,7 @@ pic_kernal_bank1:       SUBROUTINE
 ; Bank 2
 pic_kernal_bank2:       SUBROUTINE
         m_pic_kernal
+        INCLUDE "data_anim_ampoule.asm"
 	END_SEGMENT 2
 ; Bank 3
 pic_kernal_bank3:       SUBROUTINE
