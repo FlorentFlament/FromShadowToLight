@@ -9,6 +9,7 @@ clip_state      ds.b    1
 banksw_ptr      ds.w    1
 ptr             ds.w    1               ; temporary pointer
 ptr1            ds.w    1
+ptr2            ds.w    1
 
 ;;; picture playfields pointers
 pic_p0  ds.w    1

@@ -38,14 +38,11 @@ def playfields(l):
     pfs.append(list(reversed(l[32:40])))
     return flatten(pfs)
 
-def dump_picture(fname, img_name, revert):
-    # Convert to 1 byte in {0,255} per pixel
-    im   = Image.open(fname)
-
+def dump_picture(image, img_name, revert):
     # Beware im.convert('1') seems to introduce bugs !
     # To be troubleshooted and fixed upstream !
     # In the mean time using im.convert('L') instead
-    grey = im.convert('L')
+    grey = image.convert('L')
     sanity_check(grey)
     arr   = bool_array(grey)
 
@@ -64,7 +61,7 @@ def dump_picture(fname, img_name, revert):
         print(asmlib.lst2asm(pack_pfs, 8))
 
 
-def dump_structures(img_name):
+def dump_structures(img_name, img_height):
     # Print pointers
     print(f"ptr_{img_name}:")
     for i in range(6):
@@ -73,6 +70,7 @@ def dump_structures(img_name):
     print(f"clip_{img_name}:")
     print( "\tdc.b $01\t; type vertical scroller")
     print(f"\tdc.w ptr_{img_name}")
+    print( "\tdc.w ${:02x}\t; picture height".format(img_height))
 
 
 def main():
@@ -83,10 +81,11 @@ def main():
     args = parser.parse_args()
 
     img_name = sanitize(os.path.splitext(os.path.basename(args.fname))[0])
+    im = Image.open(args.fname)
     if args.picture:
-        dump_picture(args.fname, img_name, args.revert)
+        dump_picture(im, img_name, args.revert)
     else:
-        dump_structures(img_name)
+        dump_structures(img_name, im.height)
 
 if __name__ == "__main__":
     main()

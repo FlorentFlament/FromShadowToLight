@@ -1,26 +1,12 @@
-;;; Clip setup macro
-;;; Uses clip_index, clip_state, clip_counter
-        MAC m_clip_setup
-        ;; Just sets colors
-        lda #$00
-        sta COLUBK
-        lda #$fe
-        sta COLUPF
-
-        lda clip_index
-        asl
-        tax
-        lda clips_sequence,X
-        sta ptr
-        lda clips_sequence+1,X
-        sta ptr+1               ; Address of clip to display stored in ptr
-
+;;; Animation setup macro
+        MAC m_animation_setup
+        ;; ptr stores clip pointer
         ldy #$03
         lda (ptr),Y
         sta ptr1
         ldy #$04
         lda (ptr),Y
-        sta ptr1+1              ; ptr1 strores sequence pointer
+        sta ptr1+1              ; ptr1 stores sequence pointer
 
         ldy clip_state
         lda (ptr1),Y
@@ -55,17 +41,103 @@
         dey
         bpl .setup_loop
 .end:
+        ENDM
+;;; End animation setup macro
 
+
+;;; Vscroll setup macro
+        MAC m_vscroll_setup
+        ;; Compute offset in ptr2
+        ;; Fetch picture height
+        ldy #$03
+        lda (ptr),Y
+        sta ptr2
+        ldy #$04
+        lda (ptr),Y
+        sta ptr2+1
+        ;; substract picture height (40)
+        sec
+        lda ptr2
+        sbc #40
+        sta ptr2
+        lda ptr2+1
+        sbc #0
+        sta ptr2+1
+        ;; substract clip_state
+        sec
+        lda ptr2
+        sbc clip_state
+        sta ptr2
+        lda ptr2+1
+        sbc #0
+        sta ptr2+1
+        bcs .positive
+        lda #$00
+        sta ptr2
+        sta ptr2+1
+.positive
+
+        ;; ptr stores clip pointer
+        ldy #$01
+        lda (ptr),Y
+        sta ptr1
+        ldy #$02
+        lda (ptr),Y
+        sta ptr1+1              ; ptr1 strores pictures pointer
+
+        ;; ptr1 points to 6 addresses, one for each playfield
+        ldy #0
+.setup_loop:
+        lda (ptr1),Y
+        clc
+        adc ptr2
+        sta pic_p0,Y
+        iny
+        lda (ptr1),Y
+        adc ptr2+1
+        sta pic_p0,Y
+        iny
+        cpy #12
+        bne .setup_loop
+        ENDM
+;;; End Vscroll setup macro
+
+
+;;; Clip setup macro
+;;; Uses clip_index, clip_state, clip_counter
+        MAC m_clip_setup
+        ;; Just sets colors
+        lda #$00
+        sta COLUBK
+        lda #$fe
+        sta COLUPF
+
+        lda clip_index
+        asl
+        tax
+        lda clips_sequence,X
+        sta ptr
+        lda clips_sequence+1,X
+        sta ptr+1               ; Address of clip to display stored in ptr
+
+        ldy #$00
+        lda (ptr),Y
+        bne .vscroll            ; If first byte is not 0 we've got a vscroll
+        m_animation_setup
+        jmp .end
+.vscroll:
+        m_vscroll_setup
+.end:
         ;; Update clip_counter and clip_state
         lda clip_counter
         sec
-        sbc #30                 ; Random value
+        sbc #50                 ; Random value
         sta clip_counter
         bcs .skip
         inc clip_state
 .skip:
         ENDM
-;;; End of clip setup macro
+;;; End Clip setup macro
 
 
 ;;; Macro to check whether to switch to next clip
