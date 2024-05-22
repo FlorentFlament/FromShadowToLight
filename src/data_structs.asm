@@ -54,6 +54,13 @@ pfs_anime3Cul_08:
 	dc.w pic_anime3Cul_08 + 120
 	dc.w pic_anime3Cul_08 + 160
 	dc.w pic_anime3Cul_08 + 200
+pfs_anime3Cul_09:
+	dc.w pic_anime3Cul_09 + 0
+	dc.w pic_anime3Cul_09 + 40
+	dc.w pic_anime3Cul_09 + 80
+	dc.w pic_anime3Cul_09 + 120
+	dc.w pic_anime3Cul_09 + 160
+	dc.w pic_anime3Cul_09 + 200
 ptr_anim_cul:
 	dc.w pfs_anime3Cul_01
 	dc.w pfs_anime3Cul_02
@@ -63,9 +70,10 @@ ptr_anim_cul:
 	dc.w pfs_anime3Cul_06
 	dc.w pfs_anime3Cul_07
 	dc.w pfs_anime3Cul_08
+	dc.w pfs_anime3Cul_09
 seq_anim_cul:
-	dc.b $00, $01, $02, $03, $04, $05, $06, $07
-	dc.b $06, $07, $06, $07
+	dc.b $00, $00, $01, $01, $02, $03, $04, $05, $06, $07
+	dc.b $08, $07, $08, $07, $08, $07, $ff
 clip_anim_cul:
         dc.b $00                ; type animation
         dc.w ptr_anim_cul

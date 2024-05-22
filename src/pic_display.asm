@@ -3,6 +3,57 @@
 LINES_COUNT = 40        ; lines per pic (graphic)
 LINES_THICK = 6         ; line width (in pixels)
 
+;;; Setup clip macro
+        MAC m_clip_setup
+        ;; Address of clip to display is passed in ptr
+        lda #$00
+        sta COLUBK
+        lda #$fe
+        sta COLUPF
+
+        ldy #$03
+        lda (ptr),Y
+        sta ptr1
+        ldy #$04
+        lda (ptr),Y
+        sta ptr1+1              ; ptr1 strores sequence pointer
+
+        ldy clip_index
+        lda (ptr1),Y
+        cmp #$ff                ; End of animation marker
+        bne .continue
+        dec clip_index
+        jmp .end
+.continue:
+        tax                     ; X stores picture index
+
+        ldy #$01
+        lda (ptr),Y
+        sta ptr1
+        ldy #$02
+        lda (ptr),Y
+        sta ptr1+1              ; ptr1 strores pictures pointer
+
+        txa
+        asl
+        tay
+        lda (ptr1),Y
+        sta ptr
+        iny
+        lda (ptr1),Y
+        sta ptr+1               ; ptr stores picture ptr
+
+        ;; ptr points to 6 addresses, one for each playfield
+        ldy #(12-1)
+.setup_loop:
+        lda (ptr),Y
+        sta pic_p0,Y
+        dey
+        bpl .setup_loop
+.end:
+        rts
+        ENDM
+
 ;;; Setup picture macro
         MAC m_pic_setup
         ;; Address of picture to display is passed in ptr

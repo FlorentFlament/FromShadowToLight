@@ -126,6 +126,8 @@ pic_kernal_bank7:       SUBROUTINE
         m_pic_kernal
 pic_setup:              SUBROUTINE
         m_pic_setup
+clip_setup:             SUBROUTINE
+        m_clip_setup
         INCLUDE "data_structs.asm"
 
 ;;; Bank switching logic
@@ -156,14 +158,15 @@ pic_kernal_meta:
 
 init:
         CLEAN_START		; Initializes Registers & Memory
+        lda #$ff
+        sta clip_counter
 main_loop:
 	VERTICAL_SYNC		; 4 scanlines Vertical Sync signal
 .vblank:
 	lda #56
 	sta TIM64T
-        ;; SET_POINTER ptr, pf_anime3Cul_01_ptr
-        SET_POINTER ptr, pfs_anime3Cul_05
-        jsr pic_setup
+        SET_POINTER ptr, clip_anim_cul
+        jsr clip_setup
 	m_wait_timint
 .kernel:
 	lda #251
@@ -173,6 +176,13 @@ main_loop:
 .overscan:
 	lda #56
 	sta TIM64T
+        lda clip_counter
+        sec
+        sbc #30                 ; Random value
+        sta clip_counter
+        bcs .skip
+        inc clip_index
+.skip:
 	m_wait_timint
 	jmp main_loop
 
