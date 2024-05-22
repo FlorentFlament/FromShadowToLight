@@ -18,7 +18,7 @@ LINES_THICK = 6         ; line width (in pixels)
         sta pic_p0,Y
         dey
         bpl .setup_loop
-        jmp RTSBank
+        rts                     ; Should be called only in control bank (bank7)
         ENDM
 
 ;;; Picture display kernal macro

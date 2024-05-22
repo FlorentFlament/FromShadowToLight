@@ -93,65 +93,42 @@ JMPBank equ $1FE6
 	ORG $1000
 	RORG $1000
 ; Bank 0
-pic_setup_bank0:        SUBROUTINE
-        m_pic_setup
 pic_kernal_bank0:       SUBROUTINE
         m_pic_kernal
+        INCLUDE "data_anim_cul.asm"
 	END_SEGMENT 0
 ; Bank 1
-pic_setup_bank1:        SUBROUTINE
-        m_pic_setup
 pic_kernal_bank1:       SUBROUTINE
         m_pic_kernal
 	END_SEGMENT 1
 ; Bank 2
-pic_setup_bank2:        SUBROUTINE
-        m_pic_setup
 pic_kernal_bank2:       SUBROUTINE
         m_pic_kernal
 	END_SEGMENT 2
 ; Bank 3
-pic_setup_bank3:        SUBROUTINE
-        m_pic_setup
 pic_kernal_bank3:       SUBROUTINE
         m_pic_kernal
 	END_SEGMENT 3
 ; Bank 4
-pic_setup_bank4:        SUBROUTINE
-        m_pic_setup
 pic_kernal_bank4:       SUBROUTINE
         m_pic_kernal
 	END_SEGMENT 4
 ; Bank 5
-pic_setup_bank5:        SUBROUTINE
-        m_pic_setup
 pic_kernal_bank5:       SUBROUTINE
         m_pic_kernal
 	END_SEGMENT 5
 ; Bank 6
-pic_setup_bank6:        SUBROUTINE
-        m_pic_setup
 pic_kernal_bank6:       SUBROUTINE
         m_pic_kernal
-        INCLUDE "testpic2.asm"
 	END_SEGMENT 6
 ; Bank 7
-pic_setup_bank7:        SUBROUTINE
-        m_pic_setup
 pic_kernal_bank7:       SUBROUTINE
         m_pic_kernal
-        INCLUDE "testpic.asm"
+pic_setup:              SUBROUTINE
+        m_pic_setup
+        INCLUDE "data_structs.asm"
 
 ;;; Bank switching logic
-pic_setup_ptrs:
-        dc.w pic_setup_bank0
-        dc.w pic_setup_bank1
-        dc.w pic_setup_bank2
-        dc.w pic_setup_bank3
-        dc.w pic_setup_bank4
-        dc.w pic_setup_bank5
-        dc.w pic_setup_bank6
-        dc.w pic_setup_bank7
 pic_kernal_ptrs:
         dc.w pic_kernal_bank0
         dc.w pic_kernal_bank1
@@ -161,21 +138,6 @@ pic_kernal_ptrs:
         dc.w pic_kernal_bank5
         dc.w pic_kernal_bank6
         dc.w pic_kernal_bank7
-
-pic_setup_meta:
-        ;; picture to configure needs to be in ptr
-        lda ptr+1               ; Loading MSB
-        and #$e0                ; Extract bank number *2
-        REPEAT 4
-        lsr
-        REPEND
-        tax
-        lda pic_setup_ptrs,X
-        sta banksw_ptr
-        lda pic_setup_ptrs+1,X
-        sta banksw_ptr+1
-	jsr JMPBank
-        rts
 
 pic_kernal_meta:
         ;; picture to configure needs to be in ptr
@@ -200,8 +162,8 @@ main_loop:
 	lda #56
 	sta TIM64T
         ;; SET_POINTER ptr, pf_anime3Cul_01_ptr
-        SET_POINTER ptr, pf_anime4AmpouleCul_01_ptr
-        jsr pic_setup_meta
+        SET_POINTER ptr, pfs_anime3Cul_05
+        jsr pic_setup
 	m_wait_timint
 .kernel:
 	lda #251
