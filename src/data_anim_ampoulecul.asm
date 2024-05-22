@@ -84,13 +84,13 @@ pic_anime4AmpouleCul_03:
 	dc.b $ff, $ff, $ff, $ff, $ff, $00, $ff, $ff
 	dc.b $f3, $cf, $ff, $7f, $bf, $b0, $bf, $7f
 	dc.b $7f, $ef, $f7, $fb, $fd, $ff, $ff, $7f
-	dc.b $7f, $bf, $ff, $ff, $ff, $ff, $ff, $ff
-	dc.b $ff, $ff, $ef, $ef, $ef, $ff, $ff, $ff
+	dc.b $7f, $bf, $ff, $fe, $fd, $fb, $f7, $ef
+	dc.b $ef, $ef, $ef, $ef, $ef, $ef, $ef, $f7
 	dc.b $ff, $ff, $ff, $ff, $ff, $00, $ff, $ff
 	dc.b $ff, $ff, $ff, $ff, $ff, $fe, $ff, $ff
-	dc.b $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
-	dc.b $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
-	dc.b $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
+	dc.b $ff, $ff, $ff, $ff, $ff, $7f, $bf, $bf
+	dc.b $c3, $ed, $ee, $f7, $f7, $f7, $fb, $fb
+	dc.b $fb, $f7, $f7, $f7, $ef, $df, $bf, $7f
 pic_anime4AmpouleCul_04:
 	dc.b $f0, $f0, $f0, $f0, $f0, $00, $f0, $f0
 	dc.b $f0, $f0, $f0, $f0, $f0, $f0, $f0, $f0
@@ -100,23 +100,23 @@ pic_anime4AmpouleCul_04:
 	dc.b $ff, $ff, $ff, $ff, $ff, $00, $ff, $ff
 	dc.b $fc, $ff, $ff, $ff, $ff, $e0, $ff, $ff
 	dc.b $ff, $ff, $fe, $fd, $fb, $ff, $ff, $ff
-	dc.b $ff, $ff, $ff, $ff, $ff, $fe, $fe, $fe
-	dc.b $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
+	dc.b $ff, $ff, $fe, $fe, $fe, $fe, $fe, $fe
+	dc.b $fe, $fe, $ff, $ff, $ff, $ff, $ff, $ff
 	dc.b $ff, $7f, $3f, $bf, $1f, $d0, $1f, $df
 	dc.b $5f, $ec, $ef, $f7, $fb, $fb, $fb, $f7
-	dc.b $f7, $ee, $df, $ff, $7f, $7f, $ff, $ff
-	dc.b $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
-	dc.b $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
+	dc.b $f7, $ee, $df, $3f, $5f, $6f, $77, $7b
+	dc.b $7d, $be, $bf, $bf, $7f, $7f, $7f, $ff
+	dc.b $ff, $ff, $fe, $fe, $fd, $fb, $f7, $ef
 	dc.b $f0, $e0, $c0, $d0, $80, $b0, $80, $a0
 	dc.b $b0, $60, $70, $f0, $f0, $f0, $70, $b0
 	dc.b $d0, $d0, $e0, $f0, $f0, $f0, $f0, $f0
-	dc.b $f0, $f0, $f0, $f0, $f0, $f0, $f0, $f0
-	dc.b $f0, $f0, $f0, $f0, $f0, $f0, $f0, $f0
+	dc.b $f0, $f0, $f0, $f0, $f0, $f0, $f0, $e0
+	dc.b $f0, $b0, $70, $f0, $f0, $f0, $f0, $f0
 	dc.b $ff, $ff, $ff, $ff, $ff, $00, $ff, $ff
 	dc.b $f3, $cf, $ff, $7e, $bd, $83, $7f, $ff
 	dc.b $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
 	dc.b $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
-	dc.b $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
+	dc.b $ff, $ff, $7f, $9f, $e7, $ff, $ff, $ff
 	dc.b $ff, $ff, $ff, $ff, $ff, $00, $3f, $df
 	dc.b $e7, $f9, $fe, $ff, $ff, $ff, $ff, $ff
 	dc.b $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
