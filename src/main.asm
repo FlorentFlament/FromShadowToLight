@@ -9,6 +9,7 @@
 	SEG.U   ram
 	ORG     $0080
 RAM_START equ *
+        INCLUDE "InYourAss-01k_variables.asm"
         INCLUDE "variables.asm"
         echo "Used RAM:", (* - RAM_START)d, "bytes"
 
@@ -133,6 +134,7 @@ pic_kernal_bank6:       SUBROUTINE
 ; Bank 7
 pic_kernal_bank7:       SUBROUTINE
         m_pic_kernal
+        INCLUDE "InYourAss-01k_trackdata.asm"
         INCLUDE "data_structs.asm"
         INCLUDE "clips_logic.asm"
 
@@ -164,12 +166,14 @@ pic_kernal_ptrs:
 
 init:
         CLEAN_START		; Initializes Registers & Memory
+        INCLUDE "InYourAss-01k_init.asm"
         m_init
 main_loop:
 	VERTICAL_SYNC		; 4 scanlines Vertical Sync signal
 .vblank:
 	lda #56
 	sta TIM64T
+        INCLUDE "InYourAss-01k_player.asm"
         m_vblank
 	m_wait_timint
 .kernel:

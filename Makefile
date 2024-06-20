@@ -1,4 +1,4 @@
-INCDIRS=inc src
+INCDIRS=inc src msx
 DFLAGS=$(patsubst %,-I%,$(INCDIRS)) -f3 -d
 
 # asm files

@@ -6,9 +6,9 @@ clip_counter    ds.b    1
 clip_state      ds.w    1
 clip_offset     ds.b    1
 
-;;; ptr = tt_ptr		; Reusing tt_ptr as temporary pointer
+;;; temporary pointers
 banksw_ptr      ds.w    1
-ptr             ds.w    1               ; temporary pointer
+ptr             ds.w    1
 ptr1            ds.w    1
 ptr2            ds.w    1
 

@@ -12,15 +12,15 @@ clips_sequence:
         dc.w clip_animeAmpouleCul_bloc120
         
 ;;; specifies on which frame to switch parts
-M_C0 = 1000
-M_C1 = M_C0 + 250
-M_C2 = M_C1 + 1500
-M_C3 = M_C2 + 250
-M_C4 = M_C3 + 1750
-M_C5 = M_C4 + 250
-M_C6 = M_C5 + 1000
-M_C7 = M_C6 + 150
-M_C8 = M_C7 + 1000
+M_C0 = 1024
+M_C1 = M_C0 + 256
+M_C2 = M_C1 + 1536
+M_C3 = M_C2 + 256
+M_C4 = M_C3 + 1792
+M_C5 = M_C4 + 256
+M_C6 = M_C5 + 1024
+M_C7 = M_C6 + 256
+M_C8 = M_C7 + 1024
 M_C9 = 0
 clipswitch:
         .word M_C0
