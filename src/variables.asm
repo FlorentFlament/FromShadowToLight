@@ -4,6 +4,7 @@ frame_cnt       ds.w    1
 clip_index      ds.b    1
 clip_counter    ds.b    1
 clip_state      ds.w    1
+clip_offset     ds.b    1
 
 ;;; ptr = tt_ptr		; Reusing tt_ptr as temporary pointer
 banksw_ptr      ds.w    1

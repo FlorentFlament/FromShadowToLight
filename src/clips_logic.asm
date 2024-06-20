@@ -1,5 +1,16 @@
 ;;; Animation setup macro
         MAC m_animation_setup
+        ;; Update clip_counter and clip_state
+        lda clip_counter
+        sec
+        sbc #50                 ; Random value
+        sta clip_counter
+        bcs .skip
+        inc clip_state
+        bne .skip
+        inc clip_state+1
+.skip:
+
         ;; ptr stores clip pointer
         ldy #$03
         lda (ptr),Y
@@ -47,6 +58,25 @@
 
 ;;; Vscroll setup macro
         MAC m_vscroll_setup
+        ;; Update clip_counter and clip_state
+;        lda clip_counter
+;        sec
+;        sbc #255                 ; Random value
+;        sta clip_counter
+;        bcs .skip
+        ;; increase clip_offset or clip_state
+        lda clip_offset
+        beq .inc_state
+        dec clip_offset
+        jmp .skip
+.inc_state:
+        lda #(LINES_THICK-1)
+        sta clip_offset
+        inc clip_state
+        bne .skip
+        inc clip_state+1
+.skip:
+
         ;; Compute offset in ptr2
         ;; Fetch picture height
         ldy #$03
@@ -75,6 +105,7 @@
         lda #$00
         sta ptr2
         sta ptr2+1
+        sta clip_offset
 .positive
 
         ;; ptr stores clip pointer
@@ -128,16 +159,6 @@
 .vscroll:
         m_vscroll_setup
 .end:
-        ;; Update clip_counter and clip_state
-        lda clip_counter
-        sec
-        sbc #50                 ; Random value
-        sta clip_counter
-        bcs .skip
-        inc clip_state
-        bne .skip
-        inc clip_state+1
-.skip:
         ENDM
 ;;; End Clip setup macro
 
