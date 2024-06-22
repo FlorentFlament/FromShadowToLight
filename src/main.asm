@@ -171,18 +171,19 @@ init:
 main_loop:
 	VERTICAL_SYNC		; 4 scanlines Vertical Sync signal
 .vblank:
-	lda #56
+	lda #48
 	sta TIM64T
         INCLUDE "InYourAss-01k_player.asm"
+m_vblank_address:
         m_vblank
 	m_wait_timint
 .kernel:
-	lda #251
-	sta TIM64T
+	lda #18
+	sta T1024T
         m_kernal
 	m_wait_timint
 .overscan:
-	lda #56
+	lda #28
 	sta TIM64T
         m_overscan
 	m_wait_timint

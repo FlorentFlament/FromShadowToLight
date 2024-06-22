@@ -120,13 +120,15 @@
 
 ;;; Vscroll bottom-up setup macro
         MAC m_vscroll_bottom_up_setup
-        ;; Update clip_counter and clip_state
-;        lda clip_counter
-;        sec
-;        sbc #255                 ; Random value
-;        sta clip_counter
-;        bcs .skip
-        ;; increase clip_offset or clip_state
+        ;; Update clip_counter
+        lda clip_counter
+        sec
+        ;; PLease update
+        sbc #50                 ; Per scroller value - Test for now
+        sta clip_counter
+
+.update_offset_loop:
+        ;; update clip_offset & clip_state
         lda clip_offset
         beq .inc_state
         dec clip_offset
@@ -138,6 +140,12 @@
         bne .skip
         inc clip_state+1
 .skip:
+        lda clip_counter
+        clc
+        adc #40 ; Divider step
+        sta clip_counter
+        bcc .update_offset_loop
+
         ;; Compute offset in ptr2
         m_picture_state_remain
         ;; Capping

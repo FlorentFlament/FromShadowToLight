@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import math
 
-VBLANK_COMPUTE = 33 # scanlines
-OVERSCAN_COMPUTE = 47 # scanlines (worst observed sort case)
+VBLANK_COMPUTE = 10 # scanlines
+OVERSCAN_COMPUTE = 0 # scanlines (worst observed sort case)
 
 CLOCKS_PER_LINE = 76
 
@@ -12,8 +12,8 @@ CLOCKS_PER_LINE = 76
 # OVERSCAN :  36 scanlines
 # TOTAL    : 312 scanlines
 VERTICAL_SYNC = 4 # scanlines vertical sync signal
-MIN_VBLANK = 47 # scanlines (+1 WSYNC added after each wait loop)
-MIN_OVERSCAN = 35 - VERTICAL_SYNC # scanlines
+MIN_VBLANK = 41 # scanlines (+1 WSYNC added after each wait loop)
+MIN_OVERSCAN = 29 - VERTICAL_SYNC # scanlines
 TOTAL_SCANLINES = 312
 
 # Possible timers resolution:
@@ -23,7 +23,7 @@ TOTAL_SCANLINES = 312
 # T1024T : 1024 clock interval
 VBLANK_TIMER_RES = 64
 OVERSCAN_TIMER_RES = 64
-KERNAL_TIMER_RES = 64
+KERNAL_TIMER_RES = 1024
 
 def get_timer(scanlines_cnt, timer_res):
     timer = math.ceil(CLOCKS_PER_LINE * scanlines_cnt / timer_res)
