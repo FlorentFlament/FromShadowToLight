@@ -119,12 +119,16 @@
 ;;; End Picture State Remain
 
 ;;; Vscroll bottom-up setup macro
+;;; ptr points to bottom-up vscroll clip
         MAC m_vscroll_bottom_up_setup
+        ;; Fetch vscroll speed in ptr1
+        ldy #$05
+        lda (ptr),Y
+        sta ptr1
         ;; Update clip_counter
         lda clip_counter
         sec
-        ;; PLease update
-        sbc #50                 ; Per scroller value - Test for now
+        sbc ptr1
         sta clip_counter
 
 .update_offset_loop:

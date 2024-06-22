@@ -14,9 +14,9 @@ clips_sequence:
 ;;; specifies on which frame to switch parts
 M_C0 = 1024
 M_C1 = M_C0 + 256
-M_C2 = M_C1 + 1536
+M_C2 = M_C1 + 1024
 M_C3 = M_C2 + 256
-M_C4 = M_C3 + 1792
+M_C4 = M_C3 + 1024
 M_C5 = M_C4 + 256
 M_C6 = M_C5 + 1024
 M_C7 = M_C6 + 256
@@ -301,6 +301,8 @@ clip_gfx_40x200_bloc1:
 	dc.b $01	; type vertical scroller
 	dc.w ptr_gfx_40x200_bloc1
 	dc.w $f0	; picture height
+        dc.b 54         ; scroll speed 54/40
+        ;; Formula is ceil(40 * (6*pic_height - 240) / (1024-128))
 ptr_gfx_40x320_bloc2:
 	dc.w pf0_gfx_40x320_bloc2
 	dc.w pf1_gfx_40x320_bloc2
@@ -312,6 +314,7 @@ clip_gfx_40x320_bloc2:
 	dc.b $01	; type vertical scroller
 	dc.w ptr_gfx_40x320_bloc2
 	dc.w $168	; picture height
+        dc.b 86
 ptr_gfx_40x360_bloc3:
 	dc.w pf0_gfx_40x360_bloc3
 	dc.w pf1_gfx_40x360_bloc3
@@ -323,6 +326,7 @@ clip_gfx_40x360_bloc3:
 	dc.b $01	; type vertical scroller
 	dc.w ptr_gfx_40x360_bloc3
 	dc.w $190	; picture height
+        dc.b 97
 ptr_gfx_40x200_bloc4:
 	dc.w pf0_gfx_40x200_bloc4
 	dc.w pf1_gfx_40x200_bloc4
@@ -334,6 +338,7 @@ clip_gfx_40x200_bloc4:
 	dc.b $01	; type vertical scroller
 	dc.w ptr_gfx_40x200_bloc4
 	dc.w $f0	; picture height
+        dc.b 54
 ptr_animeAmpouleCul_bloc120:
 	dc.w pf0_animeAmpouleCul_bloc120
 	dc.w pf1_animeAmpouleCul_bloc120
@@ -345,6 +350,7 @@ clip_animeAmpouleCul_bloc120:
 	dc.b $02	; type vertical scroller bottom up
 	dc.w ptr_animeAmpouleCul_bloc120
 	dc.w $78	; picture height
+        dc.b 22
 ptr_gfx_40x160_bloc5:
 	dc.w pf0_gfx_40x160_bloc5
 	dc.w pf1_gfx_40x160_bloc5
@@ -356,3 +362,4 @@ clip_gfx_40x160_bloc5:
 	dc.b $01	; type vertical scroller
 	dc.w ptr_gfx_40x160_bloc5
 	dc.w $f0	; picture height
+        dc.b 54
