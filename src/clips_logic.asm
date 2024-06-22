@@ -167,6 +167,18 @@
 
 ;;; Vscroll top-down setup macro
         MAC m_vscroll_top_down_setup
+        ;; Fetch vscroll speed in ptr1
+        ldy #$05
+        lda (ptr),Y
+        sta ptr1
+        ;; Update clip_counter
+        lda clip_counter
+        sec
+        sbc ptr1
+        sta clip_counter
+
+.update_offset_loop:
+        ;; update clip_offset & clip_state
         lda clip_offset
         cmp #(LINES_THICK-1)
         beq .inc_state
@@ -179,6 +191,11 @@
         bne .skip
         inc clip_state+1
 .skip:
+        lda clip_counter
+        clc
+        adc #40 ; Divider step
+        sta clip_counter
+        bcc .update_offset_loop
 
         m_picture_state_remain
         ;; Capping
@@ -193,7 +210,6 @@
         sta ptr2
         lda ptr1+1
         sta ptr2+1
-        ;; lda #0
         lda #(LINES_THICK-1)
         sta clip_offset
 .continue:

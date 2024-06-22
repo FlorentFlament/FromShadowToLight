@@ -360,7 +360,7 @@ clip_animeAmpouleCul_bloc120:
 	dc.b $02	; type vertical scroller bottom up
 	dc.w ptr_animeAmpouleCul_bloc120
 	dc.w $78	; picture height
-        dc.b 22
+        dc.b 150
 ptr_gfx_40x160_bloc5:
 	dc.w pf0_gfx_40x160_bloc5
 	dc.w pf1_gfx_40x160_bloc5
