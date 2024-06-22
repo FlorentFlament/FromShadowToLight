@@ -1,6 +1,6 @@
 ;;; Overall sequence of clips
 clips_sequence:
-        dc.w clip_gfx_40x200_bloc1
+        dc.w clip_gfx_40x240_bloc1
         dc.w clip_anim_titre
         dc.w clip_gfx_40x320_bloc2
         dc.w clip_anim_ampoule
@@ -8,9 +8,10 @@ clips_sequence:
         dc.w clip_anim_cul
         dc.w clip_gfx_40x200_bloc4
         dc.w clip_anim_ampoulecul
-        dc.w clip_gfx_40x160_bloc5
         dc.w clip_animeAmpouleCul_bloc120
-        
+        dc.w clip_gfx_40x160_bloc5
+        dc.w clip_anim_in_your_ass
+
 ;;; specifies on which frame to switch parts
 M_C0 = 1024
 M_C1 = M_C0 + 256
@@ -19,9 +20,10 @@ M_C3 = M_C2 + 256
 M_C4 = M_C3 + 1024
 M_C5 = M_C4 + 256
 M_C6 = M_C5 + 1024
-M_C7 = M_C6 + 256
-M_C8 = M_C7 + 1024
-M_C9 = 0
+M_C7 = M_C6 + 64
+M_C8 = M_C7 + 192
+M_C9 = M_C8 + 1024
+M_C10 = 0
 clipswitch:
         .word M_C0
         .word M_C1
@@ -33,6 +35,7 @@ clipswitch:
         .word M_C7
         .word M_C8
         .word M_C9
+        .word M_C10
 
 pfs_anime3Cul_01:
 	dc.w pic_anime3Cul_01 + 0
@@ -105,6 +108,7 @@ ptr_anim_cul:
 	dc.w pfs_anime3Cul_05
 	dc.w pfs_anime3Cul_06
 	dc.w pfs_anime3Cul_07
+ptr_anim_in_your_ass:
 	dc.w pfs_blank
 	dc.w pfs_anime3Cul_08
 seq_anim_cul:
@@ -115,6 +119,12 @@ clip_anim_cul:
 	dc.b $00	; type animation
 	dc.w ptr_anim_cul
 	dc.w seq_anim_cul
+seq_anim_in_your_ass:
+	dc.b $00, $01, $00, $01, $00, $01, $ff
+clip_anim_in_your_ass:
+	dc.b $00	; type animation
+	dc.w ptr_anim_in_your_ass
+	dc.w seq_anim_in_your_ass
 pfs_anime1Titre_01:
 	dc.w pic_anime1Titre_01 + 0
 	dc.w pic_anime1Titre_01 + 40
@@ -290,18 +300,18 @@ clip_anim_ampoulecul:
 	dc.b $00	; type animation
 	dc.w ptr_anim_ampoulecul
 	dc.w seq_anim_ampoulecul
-ptr_gfx_40x200_bloc1:
-	dc.w pf0_gfx_40x200_bloc1
-	dc.w pf1_gfx_40x200_bloc1
-	dc.w pf2_gfx_40x200_bloc1
-	dc.w pf3_gfx_40x200_bloc1
-	dc.w pf4_gfx_40x200_bloc1
-	dc.w pf5_gfx_40x200_bloc1
-clip_gfx_40x200_bloc1:
+ptr_gfx_40x240_bloc1:
+	dc.w pf0_gfx_40x240_bloc1
+	dc.w pf1_gfx_40x240_bloc1
+	dc.w pf2_gfx_40x240_bloc1
+	dc.w pf3_gfx_40x240_bloc1
+	dc.w pf4_gfx_40x240_bloc1
+	dc.w pf5_gfx_40x240_bloc1
+clip_gfx_40x240_bloc1:
 	dc.b $01	; type vertical scroller
-	dc.w ptr_gfx_40x200_bloc1
-	dc.w $f0	; picture height
-        dc.b 54         ; scroll speed 54/40
+	dc.w ptr_gfx_40x240_bloc1
+	dc.w $118	; picture height
+        dc.b 65         ; scroll speed 65/40
         ;; Formula is ceil(40 * (6*pic_height - 240) / (1024-128))
 ptr_gfx_40x320_bloc2:
 	dc.w pf0_gfx_40x320_bloc2
