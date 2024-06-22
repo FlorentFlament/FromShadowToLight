@@ -45,6 +45,7 @@ def dump_picture(image, img_name, revert):
     grey = image.convert('L')
     sanity_check(grey)
     arr   = bool_array(grey)
+    arr   = [False]*(40*40) + arr # Add black screen in front
 
     lines = [arr[i:i+40] for i in range(0, len(arr), 40)]
     pfs   = [playfields(l) for l in lines]
@@ -70,7 +71,7 @@ def dump_structures(img_name, img_height):
     print(f"clip_{img_name}:")
     print( "\tdc.b $01\t; type vertical scroller")
     print(f"\tdc.w ptr_{img_name}")
-    print( "\tdc.w ${:02x}\t; picture height".format(img_height))
+    print( "\tdc.w ${:02x}\t; picture height".format(img_height+40)) # Add 40 leading lines
 
 
 def main():

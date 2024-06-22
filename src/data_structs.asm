@@ -300,7 +300,7 @@ ptr_gfx_40x200_bloc1:
 clip_gfx_40x200_bloc1:
 	dc.b $01	; type vertical scroller
 	dc.w ptr_gfx_40x200_bloc1
-	dc.w $c8	; picture height
+	dc.w $f0	; picture height
 ptr_gfx_40x320_bloc2:
 	dc.w pf0_gfx_40x320_bloc2
 	dc.w pf1_gfx_40x320_bloc2
@@ -311,7 +311,7 @@ ptr_gfx_40x320_bloc2:
 clip_gfx_40x320_bloc2:
 	dc.b $01	; type vertical scroller
 	dc.w ptr_gfx_40x320_bloc2
-	dc.w $140	; picture height
+	dc.w $168	; picture height
 ptr_gfx_40x360_bloc3:
 	dc.w pf0_gfx_40x360_bloc3
 	dc.w pf1_gfx_40x360_bloc3
@@ -322,7 +322,7 @@ ptr_gfx_40x360_bloc3:
 clip_gfx_40x360_bloc3:
 	dc.b $01	; type vertical scroller
 	dc.w ptr_gfx_40x360_bloc3
-	dc.w $168	; picture height
+	dc.w $190	; picture height
 ptr_gfx_40x200_bloc4:
 	dc.w pf0_gfx_40x200_bloc4
 	dc.w pf1_gfx_40x200_bloc4
@@ -333,7 +333,7 @@ ptr_gfx_40x200_bloc4:
 clip_gfx_40x200_bloc4:
 	dc.b $01	; type vertical scroller
 	dc.w ptr_gfx_40x200_bloc4
-	dc.w $c8	; picture height
+	dc.w $f0	; picture height
 ptr_animeAmpouleCul_bloc120:
 	dc.w pf0_animeAmpouleCul_bloc120
 	dc.w pf1_animeAmpouleCul_bloc120
@@ -355,4 +355,4 @@ ptr_gfx_40x160_bloc5:
 clip_gfx_40x160_bloc5:
 	dc.b $01	; type vertical scroller
 	dc.w ptr_gfx_40x160_bloc5
-	dc.w $c8	; picture height
+	dc.w $f0	; picture height
