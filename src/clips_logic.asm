@@ -56,8 +56,70 @@
 ;;; End animation setup macro
 
 
-;;; Vscroll setup macro
-        MAC m_vscroll_setup
+;;; Vscroll common setup
+;;; ptr stores clip pointer
+;;; prt2 stores the offset in the vscroll picture
+;;; At the end, pic_p0, pic_p1, ..., pic_p5 will hold appropriate pointers
+;;; ptr1 is used
+        MAC m_vscroll_common_setup
+        ldy #$01
+        lda (ptr),Y
+        sta ptr1
+        ldy #$02
+        lda (ptr),Y
+        sta ptr1+1              ; ptr1 strores pictures pointer
+
+        ;; ptr1 points to 6 addresses, one for each playfield
+        ;; ptr2 stores the offset in the picture
+        ldy #0
+.setup_loop:
+        lda (ptr1),Y
+        clc
+        adc ptr2
+        sta pic_p0,Y
+        iny
+        lda (ptr1),Y
+        adc ptr2+1
+        sta pic_p0,Y
+        iny
+        cpy #12
+        bne .setup_loop
+        ENDM
+;;; End Vscroll common setup macro
+
+;;; Picture State Remain
+;;; ptr points to a clip structure
+;;; -> ptr1 = pic_height - 40
+;;; -> ptr2 = pic_height - 40 - clip_state
+        MAC m_picture_state_remain
+        ;; Fetch picture height
+        ldy #$03
+        lda (ptr),Y
+        sta ptr1
+        ldy #$04
+        lda (ptr),Y
+        sta ptr1+1
+        ;; substract screen height (40 lines)
+        sec
+        lda ptr1
+        sbc #40
+        sta ptr1
+        lda ptr1+1
+        sbc #0
+        sta ptr1+1
+        ;; substract clip_state
+        sec
+        lda ptr1
+        sbc clip_state
+        sta ptr2
+        lda ptr1+1
+        sbc clip_state+1
+        sta ptr2+1
+        ENDM
+;;; End Picture State Remain
+
+;;; Vscroll bottom-up setup macro
+        MAC m_vscroll_bottom_up_setup
         ;; Update clip_counter and clip_state
 ;        lda clip_counter
 ;        sec
@@ -76,62 +138,56 @@
         bne .skip
         inc clip_state+1
 .skip:
-
         ;; Compute offset in ptr2
-        ;; Fetch picture height
-        ldy #$03
-        lda (ptr),Y
-        sta ptr2
-        ldy #$04
-        lda (ptr),Y
-        sta ptr2+1
-        ;; substract picture height (40)
-        sec
-        lda ptr2
-        sbc #40
-        sta ptr2
-        lda ptr2+1
-        sbc #0
-        sta ptr2+1
-        ;; substract clip_state
-        sec
-        lda ptr2
-        sbc clip_state
-        sta ptr2
-        lda ptr2+1
-        sbc clip_state+1
-        sta ptr2+1
+        m_picture_state_remain
+        ;; Capping
         bcs .positive
         lda #$00
         sta ptr2
         sta ptr2+1
         sta clip_offset
-.positive
-
-        ;; ptr stores clip pointer
-        ldy #$01
-        lda (ptr),Y
-        sta ptr1
-        ldy #$02
-        lda (ptr),Y
-        sta ptr1+1              ; ptr1 strores pictures pointer
-
-        ;; ptr1 points to 6 addresses, one for each playfield
-        ldy #0
-.setup_loop:
-        lda (ptr1),Y
-        clc
-        adc ptr2
-        sta pic_p0,Y
-        iny
-        lda (ptr1),Y
-        adc ptr2+1
-        sta pic_p0,Y
-        iny
-        cpy #12
-        bne .setup_loop
+        ;; We could also cap clip_state if required
+.positive:
+        m_vscroll_common_setup
         ENDM
-;;; End Vscroll setup macro
+;;; End Vscroll bottom-up setup macro
+
+
+;;; Vscroll top-down setup macro
+        MAC m_vscroll_top_down_setup
+        lda clip_offset
+        cmp #(LINES_THICK-1)
+        beq .inc_state
+        inc clip_offset
+        jmp .skip
+.inc_state:
+        lda #0
+        sta clip_offset
+        inc clip_state
+        bne .skip
+        inc clip_state+1
+.skip:
+
+        m_picture_state_remain
+        ;; Capping
+        bcc .positive
+        lda clip_state
+        sta ptr2
+        lda clip_state+1
+        sta ptr2+1
+        jmp .continue
+.positive:
+        lda ptr1
+        sta ptr2
+        lda ptr1+1
+        sta ptr2+1
+        ;; lda #0
+        lda #(LINES_THICK-1)
+        sta clip_offset
+.continue:
+        m_vscroll_common_setup
+        ENDM
+;;; End Vscroll top-down setup macro
 
 
 ;;; Clip setup macro
@@ -157,7 +213,12 @@
         m_animation_setup
         jmp .end
 .vscroll:
-        m_vscroll_setup
+        cmp #1
+        bne .top_down
+        m_vscroll_bottom_up_setup
+        jmp .end
+.top_down:
+        m_vscroll_top_down_setup
 .end:
         ENDM
 ;;; End Clip setup macro
