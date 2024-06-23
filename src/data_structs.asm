@@ -265,14 +265,12 @@ ptr_anim_ampoule:
 	dc.w pfs_anime2Ampoule_05
 	dc.w pfs_anime2Ampoule_06
 seq_anim_ampoule:
-	dc.b 0, 0, 0, 0, 0, 0, 0, 0
-        dc.b 1, 1, 1, 1, 1, 1, 1, 1
-        dc.b 2, 2, 2, 2, 2, 2, 2, 2
-        dc.b 3, 3, 3, 3, 3, 3, 3, 3
+	dc.b 0, 0, 0, 0, 1, 1, 1, 1
+        dc.b 2, 2, 2, 2, 3, 3, 3, 3
         dc.b 4, 4, 5, 5, 4, 4, 5, 5
         dc.b 4, 4, 5, 5, 4, 4, 5, 5
         dc.b 4, 5
-	dc.b $ff, 48
+	dc.b $ff, 32
 clip_anim_ampoule:
 	dc.b $00	; type animation
 	dc.w ptr_anim_ampoule
