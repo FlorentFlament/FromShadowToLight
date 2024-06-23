@@ -20,8 +20,8 @@ M_C3 = M_C2 + 256
 M_C4 = M_C3 + 1024
 M_C5 = M_C4 + 256
 M_C6 = M_C5 + 1024
-M_C7 = M_C6 + 64
-M_C8 = M_C7 + 192
+M_C7 = M_C6 + 192
+M_C8 = M_C7 + 320
 M_C9 = M_C8 + 1024
 M_C10 = 0
 clipswitch:
@@ -317,9 +317,12 @@ ptr_anim_ampoulecul:
 	dc.w pfs_anime4AmpouleCul_04
 	dc.w pfs_anime4AmpouleCul_05
 seq_anim_ampoulecul:
-	dc.b 0, 0, 0, 0, 0, 0, 1, 1
-        dc.b 1, 1, 1, 1, 2, 2, 3, 4
-        dc.b $ff, 15
+	dc.b 0, 0, 0, 0, 0, 0, 0, 0
+	dc.b 0, 0, 0, 0, 0, 0, 0, 0
+	dc.b 1, 1, 1, 1, 1, 1, 1, 1
+	dc.b 1, 1, 1, 1, 1, 1, 1, 1
+        dc.b 2, 2, 3, 4
+        dc.b $ff, 35
 clip_anim_ampoulecul:
 	dc.b $00	; type animation
 	dc.w ptr_anim_ampoulecul
@@ -335,4 +338,4 @@ clip_animeAmpouleCul_bloc120:
 	dc.b $02	; type vertical scroller bottom up
 	dc.w ptr_animeAmpouleCul_bloc120
 	dc.w $78	; picture height
-        dc.b 160
+        dc.b 100
