@@ -13,11 +13,11 @@ clips_sequence:
         dc.w clip_anim_in_your_ass
 
 ;;; specifies on which frame to switch parts
-M_C0 = 1024
+M_C0 = 1280
 M_C1 = M_C0 + 512
-M_C2 = M_C1 + 1024
+M_C2 = M_C1 + 1536
 M_C3 = M_C2 + 256
-M_C4 = M_C3 + 1024
+M_C4 = M_C3 + 1792
 M_C5 = M_C4 + 256
 M_C6 = M_C5 + 1024
 M_C7 = M_C6 + 192
