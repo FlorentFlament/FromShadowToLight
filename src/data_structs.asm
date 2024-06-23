@@ -14,7 +14,7 @@ clips_sequence:
 
 ;;; specifies on which frame to switch parts
 M_C0 = 1024
-M_C1 = M_C0 + 256
+M_C1 = M_C0 + 512
 M_C2 = M_C1 + 1024
 M_C3 = M_C2 + 256
 M_C4 = M_C3 + 1024
@@ -205,10 +205,12 @@ ptr_anim_titre:
 	dc.w pfs_anime1Titre_07
 	dc.w pfs_anime1Titre_08
 seq_anim_titre:
-	dc.b 0, 1, 0, 1, 2, 3, 2, 3
-        dc.b 4, 5, 4, 5, 6, 7, 6, 7
+	dc.b 0, 1, 0, 1, 0, 1, 0, 1
+        dc.b 2, 3, 2, 3, 2, 3, 2, 3
+        dc.b 4, 5, 4, 5, 4, 5, 4, 5
+        dc.b 6, 7, 6, 7, 6, 7, 6, 7
         dc.b 6, 6, 7, 7
-	dc.b $ff, 16
+	dc.b $ff, 32
 clip_anim_titre:
 	dc.b $00	; type animation
 	dc.w ptr_anim_titre
