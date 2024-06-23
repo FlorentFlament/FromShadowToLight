@@ -136,6 +136,7 @@ pic_kernal_bank7:       SUBROUTINE
         m_pic_kernal
         INCLUDE "InYourAss-01k_trackdata.asm"
         INCLUDE "data_structs.asm"
+        INCLUDE "vscroll_structs.asm"
         INCLUDE "clips_logic.asm"
 
 ;;; Bank switching logic

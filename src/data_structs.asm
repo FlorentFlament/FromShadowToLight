@@ -324,55 +324,6 @@ clip_anim_ampoulecul:
 	dc.b $00	; type animation
 	dc.w ptr_anim_ampoulecul
 	dc.w seq_anim_ampoulecul
-ptr_gfx_40x240_bloc1:
-	dc.w pf0_gfx_40x240_bloc1
-	dc.w pf1_gfx_40x240_bloc1
-	dc.w pf2_gfx_40x240_bloc1
-	dc.w pf3_gfx_40x240_bloc1
-	dc.w pf4_gfx_40x240_bloc1
-	dc.w pf5_gfx_40x240_bloc1
-clip_gfx_40x240_bloc1:
-	dc.b $01	; type vertical scroller
-	dc.w ptr_gfx_40x240_bloc1
-	dc.w $118	; picture height
-        dc.b 65         ; scroll speed 65/40
-        ;; Formula is ceil(40 * (6*pic_height - 240) / (1024-128))
-ptr_gfx_40x320_bloc2:
-	dc.w pf0_gfx_40x320_bloc2
-	dc.w pf1_gfx_40x320_bloc2
-	dc.w pf2_gfx_40x320_bloc2
-	dc.w pf3_gfx_40x320_bloc2
-	dc.w pf4_gfx_40x320_bloc2
-	dc.w pf5_gfx_40x320_bloc2
-clip_gfx_40x320_bloc2:
-	dc.b $01	; type vertical scroller
-	dc.w ptr_gfx_40x320_bloc2
-	dc.w $168	; picture height
-        dc.b 86
-ptr_gfx_40x360_bloc3:
-	dc.w pf0_gfx_40x360_bloc3
-	dc.w pf1_gfx_40x360_bloc3
-	dc.w pf2_gfx_40x360_bloc3
-	dc.w pf3_gfx_40x360_bloc3
-	dc.w pf4_gfx_40x360_bloc3
-	dc.w pf5_gfx_40x360_bloc3
-clip_gfx_40x360_bloc3:
-	dc.b $01	; type vertical scroller
-	dc.w ptr_gfx_40x360_bloc3
-	dc.w $190	; picture height
-        dc.b 97
-ptr_gfx_40x200_bloc4:
-	dc.w pf0_gfx_40x200_bloc4
-	dc.w pf1_gfx_40x200_bloc4
-	dc.w pf2_gfx_40x200_bloc4
-	dc.w pf3_gfx_40x200_bloc4
-	dc.w pf4_gfx_40x200_bloc4
-	dc.w pf5_gfx_40x200_bloc4
-clip_gfx_40x200_bloc4:
-	dc.b $01	; type vertical scroller
-	dc.w ptr_gfx_40x200_bloc4
-	dc.w $f0	; picture height
-        dc.b 54
 ptr_animeAmpouleCul_bloc120:
 	dc.w pf0_animeAmpouleCul_bloc120
 	dc.w pf1_animeAmpouleCul_bloc120
@@ -385,15 +336,3 @@ clip_animeAmpouleCul_bloc120:
 	dc.w ptr_animeAmpouleCul_bloc120
 	dc.w $78	; picture height
         dc.b 160
-ptr_gfx_40x160_bloc5:
-	dc.w pf0_gfx_40x160_bloc5
-	dc.w pf1_gfx_40x160_bloc5
-	dc.w pf2_gfx_40x160_bloc5
-	dc.w pf3_gfx_40x160_bloc5
-	dc.w pf4_gfx_40x160_bloc5
-	dc.w pf5_gfx_40x160_bloc5
-clip_gfx_40x160_bloc5:
-	dc.b $01	; type vertical scroller
-	dc.w ptr_gfx_40x160_bloc5
-	dc.w $f0	; picture height
-        dc.b 54

@@ -6,6 +6,7 @@
 
 import os
 import sys
+import math
 import argparse
 
 from PIL import Image
@@ -45,7 +46,7 @@ def dump_picture(image, img_name, revert):
     grey = image.convert('L')
     sanity_check(grey)
     arr   = bool_array(grey)
-    arr   = [False]*(40*40) + arr # Add black screen in front
+    arr   += [False]*(40*40) # Add black screen in back
 
     lines = [arr[i:i+40] for i in range(0, len(arr), 40)]
     pfs   = [playfields(l) for l in lines]
@@ -61,17 +62,24 @@ def dump_picture(image, img_name, revert):
         print(f"pf{i}_{img_name}:")
         print(asmlib.lst2asm(pack_pfs, 8))
 
+    # Add vscroller padding (40 $00)
+    print(f"padding_{img_name}:")
+    print(asmlib.lst2asm([0]*40, 8))
+
 
 def dump_structures(img_name, img_height):
+    img_height += 80 # Add 40 leading + 40 trailing lines
     # Print pointers
     print(f"ptr_{img_name}:")
     for i in range(6):
         print(f"\tdc.w pf{i}_{img_name}")
 
     print(f"clip_{img_name}:")
-    print( "\tdc.b $01\t; type vertical scroller")
+    print( "\tdc.b 1\t; type vertical scroller")
     print(f"\tdc.w ptr_{img_name}")
-    print( "\tdc.w ${:02x}\t; picture height".format(img_height+40)) # Add 40 leading lines
+    print(f"\tdc.w {img_height}\t; picture height")
+    scroll_speed = int(math.ceil(40*6*(img_height-40) / 1024))
+    print(f"\tdc.b {scroll_speed}\t; scroll speed")
 
 
 def main():
