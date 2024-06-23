@@ -3,7 +3,7 @@
         ;; Update clip_counter and clip_state
         lda clip_counter
         sec
-        sbc #50                 ; Random value
+        sbc #64
         sta clip_counter
         bcs .skip
         inc clip_state
@@ -19,12 +19,15 @@
         lda (ptr),Y
         sta ptr1+1              ; ptr1 stores sequence pointer
 
+.load_next_pic:
         ldy clip_state          ; Only using LSB for animations
         lda (ptr1),Y
-        cmp #$ff                ; End of animation marker
+        cmp #$ff                ; Loop animation marker
         bne .continue
-        dec clip_state
-        jmp .end
+        iny
+        lda (ptr1),Y
+        sta clip_state
+        jmp .load_next_pic
 .continue:
         tax                     ; X stores picture index
 

@@ -112,15 +112,29 @@ ptr_anim_in_your_ass:
 	dc.w pfs_blank
 	dc.w pfs_anime3Cul_08
 seq_anim_cul:
-	dc.b $00, $00, $00, $00, $01, $01, $01, $01
-	dc.b $02, $03, $04, $05, $06, $07, $07, $07
-	dc.b $07, $08, $07, $08, $07, $08, $ff
+	dc.b 0, 0, 0, 0, 0, 0, 0, 0
+        dc.b 1, 1, 1, 1, 1, 1, 1, 1
+        dc.b 2, 2, 3, 3, 4, 5, 6, 7
+        dc.b 7, 7, 7, 7, 7, 7, 8, 8
+	dc.b $ff, 28
 clip_anim_cul:
 	dc.b $00	; type animation
 	dc.w ptr_anim_cul
 	dc.w seq_anim_cul
 seq_anim_in_your_ass:
-	dc.b $00, $01, $00, $01, $00, $01, $ff
+	dc.b 1, 1, 0, 0, 1, 1, 0, 0
+	dc.b 1, 1, 0, 0, 1, 1, 0, 0
+	dc.b 1, 1, 0, 0, 1, 1, 0, 0
+	dc.b 1, 1, 0, 0, 1, 1, 0, 0
+	dc.b 1, 0, 1, 0, 1, 0, 1, 0
+	dc.b 1, 0, 1, 0, 1, 0, 1, 0
+	dc.b 1, 0, 1, 0, 1, 0, 1, 0
+	dc.b 1, 0, 1, 0, 1, 0, 1, 0
+	dc.b 1, 1, 1, 1, 0, 0, 0, 0
+	dc.b 1, 1, 1, 1, 0, 0, 0, 0
+	dc.b 1, 1, 1, 1, 0, 0, 0, 0
+	dc.b 1, 1, 1, 1, 0, 0, 0, 0
+        dc.b $ff, 0
 clip_anim_in_your_ass:
 	dc.b $00	; type animation
 	dc.w ptr_anim_in_your_ass
@@ -191,8 +205,10 @@ ptr_anim_titre:
 	dc.w pfs_anime1Titre_07
 	dc.w pfs_anime1Titre_08
 seq_anim_titre:
-	dc.b $00, $01, $02, $03, $04, $05, $06, $07
-	dc.b $06, $07, $06, $07, $06, $07, $ff
+	dc.b 0, 1, 0, 1, 2, 3, 2, 3
+        dc.b 4, 5, 4, 5, 6, 7, 6, 7
+        dc.b 6, 6, 7, 7
+	dc.b $ff, 16
 clip_anim_titre:
 	dc.b $00	; type animation
 	dc.w ptr_anim_titre
@@ -247,8 +263,14 @@ ptr_anim_ampoule:
 	dc.w pfs_anime2Ampoule_05
 	dc.w pfs_anime2Ampoule_06
 seq_anim_ampoule:
-	dc.b $00, $01, $02, $03, $04, $05, $04, $05
-	dc.b $04, $05, $04, $05, $ff
+	dc.b 0, 0, 0, 0, 0, 0, 0, 0
+        dc.b 1, 1, 1, 1, 1, 1, 1, 1
+        dc.b 2, 2, 2, 2, 2, 2, 2, 2
+        dc.b 3, 3, 3, 3, 3, 3, 3, 3
+        dc.b 4, 4, 5, 5, 4, 4, 5, 5
+        dc.b 4, 4, 5, 5, 4, 4, 5, 5
+        dc.b 4, 5
+	dc.b $ff, 48
 clip_anim_ampoule:
 	dc.b $00	; type animation
 	dc.w ptr_anim_ampoule
@@ -295,7 +317,9 @@ ptr_anim_ampoulecul:
 	dc.w pfs_anime4AmpouleCul_04
 	dc.w pfs_anime4AmpouleCul_05
 seq_anim_ampoulecul:
-	dc.b $00, $01, $02, $03, $04, $ff
+	dc.b 0, 0, 0, 0, 0, 0, 1, 1
+        dc.b 1, 1, 1, 1, 2, 2, 3, 4
+        dc.b $ff, 15
 clip_anim_ampoulecul:
 	dc.b $00	; type animation
 	dc.w ptr_anim_ampoulecul
@@ -360,7 +384,7 @@ clip_animeAmpouleCul_bloc120:
 	dc.b $02	; type vertical scroller bottom up
 	dc.w ptr_animeAmpouleCul_bloc120
 	dc.w $78	; picture height
-        dc.b 150
+        dc.b 160
 ptr_gfx_40x160_bloc5:
 	dc.w pf0_gfx_40x160_bloc5
 	dc.w pf1_gfx_40x160_bloc5
