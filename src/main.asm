@@ -122,6 +122,7 @@ pic_kernal_bank4:       SUBROUTINE
         m_pic_kernal
         INCLUDE "data_vscroll_ampoulecul.asm"
         INCLUDE "data_vscroll_bloc5.asm"
+        INCLUDE "data_calage_beamer.asm"
 	END_SEGMENT 4
 ; Bank 5
 pic_kernal_bank5:       SUBROUTINE
@@ -174,8 +175,12 @@ main_loop:
 .vblank:
 	lda #48
 	sta TIM64T
+        lda clip_index
+        bne .play_the_music
+        jmp nosound
+.play_the_music:
         INCLUDE "InYourAss-01k_player.asm"
-m_vblank_address:
+nosound:
         m_vblank
 	m_wait_timint
 .kernel:

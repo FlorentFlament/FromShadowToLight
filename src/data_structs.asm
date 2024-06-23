@@ -1,5 +1,6 @@
 ;;; Overall sequence of clips
 clips_sequence:
+        dc.w clip_calage_beamer
         dc.w clip_gfx_40x240_bloc1
         dc.w clip_anim_titre
         dc.w clip_gfx_40x320_bloc2
@@ -13,7 +14,8 @@ clips_sequence:
         dc.w clip_anim_in_your_ass
 
 ;;; specifies on which frame to switch parts
-M_C0 = 1280
+M_CAL = 512
+M_C0 = M_CAL + 1280
 M_C1 = M_C0 + 512
 M_C2 = M_C1 + 1536
 M_C3 = M_C2 + 256
@@ -25,6 +27,7 @@ M_C8 = M_C7 + 320
 M_C9 = M_C8 + 1024
 M_C10 = 0
 clipswitch:
+        .word M_CAL
         .word M_C0
         .word M_C1
         .word M_C2
@@ -339,3 +342,18 @@ clip_animeAmpouleCul_bloc120:
 	dc.w ptr_animeAmpouleCul_bloc120
 	dc.w $78	; picture height
         dc.b 100
+pfs_calageBeamer:
+	dc.w pic_calageBeamer + 0
+	dc.w pic_calageBeamer + 40
+	dc.w pic_calageBeamer + 80
+	dc.w pic_calageBeamer + 120
+	dc.w pic_calageBeamer + 160
+	dc.w pic_calageBeamer + 200
+ptr_calage_beamer:
+	dc.w pfs_calageBeamer
+seq_calage_beamer:
+	dc.b $00, $ff
+clip_calage_beamer:
+	dc.b $00	; type animation
+	dc.w ptr_calage_beamer
+	dc.w seq_calage_beamer

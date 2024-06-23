@@ -1,5 +1,8 @@
 ;;; Animation setup macro
         MAC m_animation_setup
+        ;; Always large first line
+        lda #(LINES_THICK-1)
+        sta clip_offset
         ;; Update clip_counter and clip_state
         lda clip_counter
         sec
